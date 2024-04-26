@@ -1,4 +1,4 @@
-package board
+package Board
 
 import (
 	"fmt"
@@ -9,6 +9,17 @@ import (
 type Tile struct {
 	state  bool
 	animal animal.Animal
+}
+
+func NewBlankTile() Tile {
+	tile := Tile{false, animal.NewDefault()}
+	return tile
+}
+
+func NewTile(a animal.Animal) Tile {
+	tile := Tile{true, a}
+	return tile
+
 }
 
 func (t Tile) Print() {

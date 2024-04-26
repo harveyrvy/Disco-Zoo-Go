@@ -1,17 +1,19 @@
 package Animal
 
-import "fmt"
+import (
+	utils "github.com/discozoo/Utils"
+)
 
 type Animal struct {
 	name  string
-	tiles [][2]int
+	tiles utils.TilesList
 }
 
 func NewDefault() Animal {
-	return Animal{"Empty", make([][2]int, 0)}
+	return Animal{"X", utils.NewTilesList()}
 }
 
-func NewAnimal(name string, tiles [][2]int) Animal {
+func NewAnimal(name string, tiles utils.TilesList) Animal {
 	return Animal{name, tiles}
 }
 
@@ -19,6 +21,18 @@ func (a *Animal) SetName(name string) {
 	a.name = name
 }
 
-func (a *Animal) Print() {
-	fmt.Printf(a.name)
+func (a *Animal) GetName() string {
+	return a.name
+}
+
+func (a *Animal) SetTiles(tiles utils.TilesList) {
+	a.tiles = tiles
+}
+
+func (a *Animal) GetTiles() utils.TilesList {
+	return a.tiles
+}
+
+func (a *Animal) String() string {
+	return a.name
 }

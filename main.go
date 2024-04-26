@@ -4,12 +4,17 @@ import (
 	"fmt"
 
 	animal "github.com/discozoo/Animal"
+	board "github.com/discozoo/Board"
 )
 
 func main() {
-	fmt.Print("hello world \n")
-	a := animal.NewDefault()
-	a.SetName("Sheep")
-	fmt.Print(a)
+
+	board := board.New()
+	board.Print()
+	err := board.ChangeBoard(0, 0, animal.Rabbit)
+	if err != nil {
+		fmt.Println(err)
+	}
+	board.Print()
 
 }
