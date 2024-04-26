@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	animal "github.com/discozoo/Animal"
+)
 
 func main() {
-	fmt.Print("hello world")
+	fmt.Print("hello world \n")
+	a := animal.NewDefault()
+	a.SetName("Sheep")
+	fmt.Print(a)
+
 }
