@@ -42,7 +42,6 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 
 func (b *Board) ChangeBoard(changes []BoardChange) error {
 	for _, c := range changes {
-		fmt.Println(c)
 		err := boardChangePossible(*b, c.startX, c.startY, c.animal)
 		if err != nil {
 			return fmt.Errorf("board change %v wasn't possible: %s", c, err)

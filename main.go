@@ -13,7 +13,7 @@ func main() {
 	changes := []boardpkg.BoardChange{
 		boardpkg.NewBoardChange(0, 0, farm.Rabbit),
 		boardpkg.NewBoardChange(0, 1, farm.Sheep),
-		boardpkg.NewBoardChange(3, 0, farm.Chicken),
+		boardpkg.NewBoardChange(4, 0, farm.Chicken),
 	}
 
 	err := board.ChangeBoard(changes)
