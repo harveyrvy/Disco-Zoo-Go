@@ -16,10 +16,36 @@ func main() {
 		boardpkg.NewBoardChange(4, 0, farm.Chicken),
 	}
 
-	err := board.ChangeBoard(changes)
-	if err != nil {
-		fmt.Println(err)
+	for _, c := range changes {
+		err := board.ChangeBoard(c)
+		if err != nil {
+			fmt.Println(err)
 
+		}
+		//board.Print()
 	}
-	board.Print()
+
+	board2 := boardpkg.New()
+	matrix := board2.GetMatrix()
+	for i := range matrix {
+		for j := range matrix[i] {
+			err := board2.ChangeBoard(boardpkg.NewBoardChange(i, j, farm.Rabbit))
+
+			if err != nil {
+				fmt.Println(err)
+			}
+			// TODO: need to break here because it adds chickens to count even if rabbit not placed
+			board2.Print()
+			for i := range matrix {
+				for j := range matrix[i] {
+					board2.IncCounts(boardpkg.NewBoardChange(i, j, farm.Chicken))
+				}
+			}
+			board2.Print()
+			board2.ClearAnimals()
+			board2.Print()
+
+		}
+	}
+
 }

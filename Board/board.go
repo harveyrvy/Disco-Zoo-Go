@@ -40,18 +40,41 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 	return nil
 }
 
-func (b *Board) ChangeBoard(changes []BoardChange) error {
-	for _, c := range changes {
-		err := boardChangePossible(*b, c.startX, c.startY, c.animal)
-		if err != nil {
-			return fmt.Errorf("board change %v wasn't possible: %s", c, err)
-		}
-		for _, v := range c.animal.GetTiles() {
-			b.matrix[c.startX+v[0]][c.startY+v[1]] = NewTile(c.animal)
-			b.counts[c.startX+v[0]][c.startY+v[1]]++
-		}
+func (b *Board) ChangeBoard(c BoardChange) error {
+
+	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
+	if err != nil {
+		return fmt.Errorf("board change %v wasn't possible: %s", c, err)
+	}
+	for _, v := range c.animal.GetTiles() {
+		b.matrix[c.startX+v[0]][c.startY+v[1]] = NewTile(c.animal)
+		b.counts[c.startX+v[0]][c.startY+v[1]]++
 	}
 	return nil
+}
+
+func (b *Board) IncCounts(c BoardChange) error {
+	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
+	if err != nil {
+		return nil
+	}
+	for _, v := range c.animal.GetTiles() {
+		b.counts[c.startX+v[0]][c.startY+v[1]]++
+	}
+	return nil
+}
+
+func (b *Board) ClearAnimals() {
+	for i := range b.matrix {
+		for j := range b.matrix[i] {
+			b.matrix[i][j] = NewBlankTile()
+
+		}
+	}
+}
+
+func (b *Board) GetMatrix() [5][5]Tile {
+	return b.matrix
 }
 
 func (b *Board) String() string {
@@ -67,6 +90,6 @@ func (b *Board) String() string {
 }
 
 func (b *Board) Print() {
-	fmt.Print(b.String())
+	fmt.Println(b.String())
 
 }
