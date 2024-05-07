@@ -33,19 +33,17 @@ func main() {
 
 			if err != nil {
 				fmt.Println(err)
+				continue
 			}
-			// TODO: need to break here because it adds chickens to count even if rabbit not placed
 			board2.Print()
 			for i := range matrix {
 				for j := range matrix[i] {
-					board2.IncCounts(boardpkg.NewBoardChange(i, j, farm.Chicken))
+					board2.IncCounts(boardpkg.NewBoardChange(i, j, farm.Sheep))
 				}
 			}
-			board2.Print()
 			board2.ClearAnimals()
-			board2.Print()
-
 		}
 	}
+	board2.Print()
 
 }
