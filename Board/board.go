@@ -58,7 +58,7 @@ func (b *Board) String() string {
 	for i := range b.matrix {
 		str = str + "||  "
 		for j := range b.matrix[i] {
-			str = str + fmt.Sprintf("%s | %d  ||  ", b.matrix[i][j].animal.String(), b.counts[i][j])
+			str = str + fmt.Sprintf("%8s | %-8d  ||  ", b.matrix[i][j].animal.String(), b.counts[i][j])
 		}
 		str = str + "\n"
 	}
@@ -67,4 +67,5 @@ func (b *Board) String() string {
 
 func (b *Board) Print() {
 	fmt.Print(b.String())
+
 }

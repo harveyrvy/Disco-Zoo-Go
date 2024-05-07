@@ -10,7 +10,6 @@ import (
 func main() {
 
 	board := board.New()
-	board.Print()
 	err := board.ChangeBoard(0, 0, animal.Rabbit)
 	if err != nil {
 		fmt.Println(err)
