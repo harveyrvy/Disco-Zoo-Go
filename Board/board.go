@@ -31,7 +31,6 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 	}
 	for _, v := range animal.GetTiles() {
 		if startX+v[0] < 0 || startY+v[1] < 0 || startX+v[0] > 4 || startY+v[1] > 4 {
-			fmt.Printf("%d, %d, %d, %d ", startX, startY, v[0], v[1])
 			return fmt.Errorf("animal will be placed outside of board")
 		}
 		if b.matrix[startX+v[0]][startY+v[1]].state {
@@ -41,14 +40,17 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 	return nil
 }
 
-func (b *Board) ChangeBoard(startX, startY int, animal animal.Animal) error {
-	err := boardChangePossible(*b, startX, startY, animal)
-	if err != nil {
-		return err
-	}
-	for _, v := range animal.GetTiles() {
-		b.matrix[startX+v[0]][startY+v[1]] = NewTile(animal)
-		b.counts[startX+v[0]][startY+v[1]]++
+func (b *Board) ChangeBoard(changes []BoardChange) error {
+	for _, c := range changes {
+		fmt.Println(c)
+		err := boardChangePossible(*b, c.startX, c.startY, c.animal)
+		if err != nil {
+			return fmt.Errorf("board change %v wasn't possible: %s", c, err)
+		}
+		for _, v := range c.animal.GetTiles() {
+			b.matrix[c.startX+v[0]][c.startY+v[1]] = NewTile(c.animal)
+			b.counts[c.startX+v[0]][c.startY+v[1]]++
+		}
 	}
 	return nil
 }
