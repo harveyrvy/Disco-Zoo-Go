@@ -31,7 +31,6 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 	}
 	for _, v := range animal.GetTiles() {
 		if startX+v[0] < 0 || startY+v[1] < 0 || startX+v[0] > 4 || startY+v[1] > 4 {
-			fmt.Printf("%d, %d, %d, %d ", startX, startY, v[0], v[1])
 			return fmt.Errorf("animal will be placed outside of board")
 		}
 		if b.matrix[startX+v[0]][startY+v[1]].state {
@@ -41,16 +40,41 @@ func boardChangePossible(b Board, startX, startY int, animal animal.Animal) erro
 	return nil
 }
 
-func (b *Board) ChangeBoard(startX, startY int, animal animal.Animal) error {
-	err := boardChangePossible(*b, startX, startY, animal)
+func (b *Board) ChangeBoard(c BoardChange) error {
+
+	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
 	if err != nil {
-		return err
+		return fmt.Errorf("board change %v wasn't possible: %s", c, err)
 	}
-	for _, v := range animal.GetTiles() {
-		b.matrix[startX+v[0]][startY+v[1]] = NewTile(animal)
-		b.counts[startX+v[0]][startY+v[1]]++
+	for _, v := range c.animal.GetTiles() {
+		b.matrix[c.startX+v[0]][c.startY+v[1]] = NewTile(c.animal)
+		b.counts[c.startX+v[0]][c.startY+v[1]]++
 	}
 	return nil
+}
+
+func (b *Board) IncCounts(c BoardChange) error {
+	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
+	if err != nil {
+		return nil
+	}
+	for _, v := range c.animal.GetTiles() {
+		b.counts[c.startX+v[0]][c.startY+v[1]]++
+	}
+	return nil
+}
+
+func (b *Board) ClearAnimals() {
+	for i := range b.matrix {
+		for j := range b.matrix[i] {
+			b.matrix[i][j] = NewBlankTile()
+
+		}
+	}
+}
+
+func (b *Board) GetMatrix() [5][5]Tile {
+	return b.matrix
 }
 
 func (b *Board) String() string {
@@ -58,7 +82,7 @@ func (b *Board) String() string {
 	for i := range b.matrix {
 		str = str + "||  "
 		for j := range b.matrix[i] {
-			str = str + fmt.Sprintf("%s | %d  ||  ", b.matrix[i][j].animal.String(), b.counts[i][j])
+			str = str + fmt.Sprintf("%8s | %-8d  ||  ", b.matrix[i][j].animal.String(), b.counts[i][j])
 		}
 		str = str + "\n"
 	}
@@ -66,5 +90,6 @@ func (b *Board) String() string {
 }
 
 func (b *Board) Print() {
-	fmt.Print(b.String())
+	fmt.Println(b.String())
+
 }

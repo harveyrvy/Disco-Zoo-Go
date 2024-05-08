@@ -19,10 +19,13 @@ func NewBlankTile() Tile {
 func NewTile(a animal.Animal) Tile {
 	tile := Tile{true, a}
 	return tile
-
 }
 
-func (t Tile) Print() {
+func (t *Tile) SetState(b bool) {
+	t.state = b
+}
+
+func (t *Tile) Print() {
 	if !t.state {
 		fmt.Printf("Empty")
 	} else {

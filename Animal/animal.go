@@ -14,6 +14,7 @@ func NewDefault() Animal {
 }
 
 func NewAnimal(name string, tiles utils.TilesList) Animal {
+
 	return Animal{name, tiles}
 }
 
