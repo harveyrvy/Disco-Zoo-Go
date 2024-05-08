@@ -98,7 +98,7 @@ func (b *Board) GetMatrix() [5][5]Tile {
 	return b.matrix
 }
 
-func (b *Board) String() string {
+func (b Board) String() string {
 	str := ""
 	for i := range b.matrix {
 		str = str + "||  "
