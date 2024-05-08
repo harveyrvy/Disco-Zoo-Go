@@ -48,20 +48,41 @@ func (b *Board) ChangeBoard(c BoardChange) error {
 	}
 	for _, v := range c.animal.GetTiles() {
 		b.matrix[c.startX+v[0]][c.startY+v[1]] = NewTile(c.animal)
-		b.counts[c.startX+v[0]][c.startY+v[1]]++
+		//b.counts[c.startX+v[0]][c.startY+v[1]]++
 	}
 	return nil
 }
 
-func (b *Board) IncCounts(c BoardChange) error {
+func (b *Board) IncCounts(c BoardChange) int {
 	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
 	if err != nil {
-		return nil
+		return 0
 	}
 	for _, v := range c.animal.GetTiles() {
 		b.counts[c.startX+v[0]][c.startY+v[1]]++
 	}
-	return nil
+
+	for i := range b.matrix {
+		for j := range b.matrix[i] {
+			if b.matrix[i][j].state {
+				b.counts[i][j]++
+			}
+
+		}
+	}
+
+	return 1
+}
+
+func (b *Board) ConvertCounts(boards int) [5][5]float64 {
+	prc := [5][5]float64{}
+	for i := range b.counts {
+		for j := range b.counts[i] {
+			prc[i][j] = 100 * float64(b.counts[i][j]) / float64(boards)
+
+		}
+	}
+	return prc
 }
 
 func (b *Board) ClearAnimals() {

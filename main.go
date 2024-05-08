@@ -9,41 +9,30 @@ import (
 
 func main() {
 
+	boardsCount := 0
+
 	board := boardpkg.New()
-	changes := []boardpkg.BoardChange{
-		boardpkg.NewBoardChange(0, 0, farm.Rabbit),
-		boardpkg.NewBoardChange(0, 1, farm.Sheep),
-		boardpkg.NewBoardChange(4, 0, farm.Chicken),
-	}
-
-	for _, c := range changes {
-		err := board.ChangeBoard(c)
-		if err != nil {
-			fmt.Println(err)
-
-		}
-		//board.Print()
-	}
-
-	board2 := boardpkg.New()
-	matrix := board2.GetMatrix()
+	matrix := board.GetMatrix()
 	for i := range matrix {
 		for j := range matrix[i] {
-			err := board2.ChangeBoard(boardpkg.NewBoardChange(i, j, farm.Rabbit))
+			err := board.ChangeBoard(boardpkg.NewBoardChange(i, j, farm.Rabbit))
 
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
-			board2.Print()
+			board.Print()
 			for i := range matrix {
 				for j := range matrix[i] {
-					board2.IncCounts(boardpkg.NewBoardChange(i, j, farm.Sheep))
+					n := board.IncCounts(boardpkg.NewBoardChange(i, j, farm.Sheep))
+					boardsCount = boardsCount + n
 				}
 			}
-			board2.ClearAnimals()
+			board.ClearAnimals()
 		}
 	}
-	board2.Print()
+	board.Print()
+	fmt.Println(boardsCount)
+	fmt.Println(board.ConvertCounts(boardsCount))
 
 }
