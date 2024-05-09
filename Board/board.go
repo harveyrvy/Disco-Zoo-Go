@@ -57,37 +57,6 @@ func (b *Board) ChangeBoard(c BoardChange) error {
 	return nil
 }
 
-func (b *Board) IncCounts(c BoardChange) int {
-	err := boardChangePossible(*b, c.startX, c.startY, c.animal)
-	if err != nil {
-		return 0
-	}
-	//increment all squares with placed animal in
-	for _, v := range c.animal.GetTiles() {
-		b.counts.IncrementCount(c.startX+v[0], c.startY+v[1])
-	}
-	//increment all squares with animal already in
-	for i := range b.matrix {
-		for j := range b.matrix[i] {
-			if b.matrix[i][j].state {
-				b.counts.IncrementCount(i, j)
-			}
-
-		}
-	}
-
-	return 1
-}
-
-func (b *Board) ClearAnimals() {
-	for i := range b.matrix {
-		for j := range b.matrix[i] {
-			b.matrix[i][j] = NewBlankTile()
-
-		}
-	}
-}
-
 func (b *Board) GetMatrix() [5][5]Tile {
 	return b.matrix
 }

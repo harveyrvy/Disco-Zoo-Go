@@ -10,36 +10,11 @@ import (
 
 func main() {
 
-	boardsCount := 0
-	board := boardpkg.New()
-	matrix := board.GetMatrix()
-
-	var animals = []animal.Animal{farm.Rabbit, farm.Sheep}
-
-	for i := range matrix {
-		for j := range matrix[i] {
-			err := board.ChangeBoard(boardpkg.NewBoardChange(i, j, farm.Rabbit))
-
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			for i := range matrix {
-				for j := range matrix[i] {
-					n := board.IncCounts(boardpkg.NewBoardChange(i, j, farm.Sheep))
-					boardsCount = boardsCount + n
-				}
-			}
-			board.ClearAnimals()
-		}
-	}
-	fmt.Println(board)
-	fmt.Println(board.GetCounts().ConvertCounts(boardsCount))
-
+	var animals = []animal.Animal{farm.Rabbit, farm.Sheep, farm.Chicken}
 	allBoards := generateAllBoards(animals)
-	for _, b := range allBoards {
-		fmt.Println(b)
-	}
+
+	//printAllBoards(allBoards)
+
 	fmt.Printf("There are %d boards \n", len(allBoards))
 
 	prc := boardpkg.PercCount{}
@@ -95,4 +70,10 @@ func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) [
 		}
 	}
 	return output
+}
+
+func printAllBoards(boards []boardpkg.Board) {
+	for _, b := range boards {
+		fmt.Println(b)
+	}
 }
