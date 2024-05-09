@@ -8,12 +8,14 @@ import (
 	boardpkg "github.com/discozoo/Board"
 )
 
-func main() {
+var placementErrorLog = []string{}
 
+func main() {
 	var animals = []animal.Animal{farm.Rabbit, farm.Sheep}
 	allBoards := generateAllBoards(animals)
 
 	//printAllBoards(allBoards)
+	//fmt.Print(placementErrorLog)
 
 	fmt.Printf("There are %d boards \n", len(allBoards))
 
@@ -45,7 +47,7 @@ func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) [
 				err := bCopy.ChangeBoard(boardpkg.NewBoardChange(i, j, animal))
 
 				if err != nil {
-					fmt.Println(err)
+					placementErrorLog = append(placementErrorLog, fmt.Sprintf("%s\n", err))
 					continue
 				}
 				// add new board
@@ -55,6 +57,7 @@ func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) [
 			}
 		}
 	}
+
 	return output
 }
 
