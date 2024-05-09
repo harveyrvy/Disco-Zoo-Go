@@ -10,28 +10,14 @@ import (
 
 func main() {
 
-	var animals = []animal.Animal{farm.Rabbit, farm.Sheep, farm.Chicken}
+	var animals = []animal.Animal{farm.Rabbit, farm.Sheep}
 	allBoards := generateAllBoards(animals)
 
 	//printAllBoards(allBoards)
 
 	fmt.Printf("There are %d boards \n", len(allBoards))
 
-	prc := boardpkg.PercCount{}
-	prcMatrix := prc.GetMatrix()
-	for i := range prcMatrix {
-		for j := range prcMatrix[i] {
-			for _, b := range allBoards {
-				bMatrix := b.GetMatrix()
-				if bMatrix[i][j].GetState() {
-					prc.IncValue(i, j)
-				}
-			}
-			// convert to percentiles calculation
-			prc.ScaleValue(i, j, 100/float64(len(allBoards)))
-		}
-
-	}
+	prc := boardpkg.CalculatePercentages(allBoards)
 	fmt.Println(prc)
 }
 
