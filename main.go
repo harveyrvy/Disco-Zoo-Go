@@ -33,6 +33,6 @@ func main() {
 	}
 	board.Print()
 	fmt.Println(boardsCount)
-	fmt.Println(board.ConvertCounts(boardsCount))
+	fmt.Println(board.GetCounts().ConvertCounts(boardsCount))
 
 }

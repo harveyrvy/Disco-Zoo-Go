@@ -8,12 +8,16 @@ import (
 
 type Board struct {
 	matrix [5][5]Tile
-	counts [5][5]int
+	counts countsMatrix
+}
+
+func (b *Board) GetCounts() *countsMatrix {
+	return &b.counts
 }
 
 func New() Board {
 	matrix := [5][5]Tile{}
-	counts := [5][5]int{}
+	counts := countsMatrix{}
 
 	t := NewBlankTile()
 	for i := range matrix {
@@ -58,31 +62,21 @@ func (b *Board) IncCounts(c BoardChange) int {
 	if err != nil {
 		return 0
 	}
+	//increment all squares with placed animal in
 	for _, v := range c.animal.GetTiles() {
-		b.counts[c.startX+v[0]][c.startY+v[1]]++
+		b.counts.IncrementCount(c.startX+v[0], c.startY+v[1])
 	}
-
+	//increment all squares with animal already in
 	for i := range b.matrix {
 		for j := range b.matrix[i] {
 			if b.matrix[i][j].state {
-				b.counts[i][j]++
+				b.counts.IncrementCount(i, j)
 			}
 
 		}
 	}
 
 	return 1
-}
-
-func (b *Board) ConvertCounts(boards int) [5][5]float64 {
-	prc := [5][5]float64{}
-	for i := range b.counts {
-		for j := range b.counts[i] {
-			prc[i][j] = 100 * float64(b.counts[i][j]) / float64(boards)
-
-		}
-	}
-	return prc
 }
 
 func (b *Board) ClearAnimals() {
@@ -103,7 +97,7 @@ func (b *Board) String() string {
 	for i := range b.matrix {
 		str = str + "||  "
 		for j := range b.matrix[i] {
-			str = str + fmt.Sprintf("%8s | %-8d  ||  ", b.matrix[i][j].animal.String(), b.counts[i][j])
+			str = str + fmt.Sprintf("%8s | %-8d  ||  ", b.matrix[i][j].animal.String(), b.counts.getValue(i, j))
 		}
 		str = str + "\n"
 	}
