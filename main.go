@@ -14,7 +14,7 @@ func main() {
 	board := boardpkg.New()
 	matrix := board.GetMatrix()
 
-	//var animals = []animal.Animal
+	var animals = []animal.Animal{}
 
 	for i := range matrix {
 		for j := range matrix[i] {
@@ -36,44 +36,50 @@ func main() {
 	fmt.Println(board)
 	fmt.Println(boardsCount)
 	fmt.Println(board.GetCounts().ConvertCounts(boardsCount))
-	animals := []animal.Animal{farm.Rabbit, farm.Sheep}
-	boards := generateAllBoards(animals)
-	for _, b := range boards {
+
+	rabbitBoards := allAnimalPositionsForBoard(farm.Rabbit, []boardpkg.Board{boardpkg.New()})
+	sheepBoards := allAnimalPositionsForBoard(farm.Sheep, rabbitBoards)
+
+	for _, b := range sheepBoards {
+		fmt.Println(b)
+	}
+
+	allBoards := generateAllBoards(animals)
+	for _, b := range allBoards {
 		fmt.Println(b)
 	}
 
 }
 
 func generateAllBoards(animals []animal.Animal) [](boardpkg.Board) {
-	boards := [](boardpkg.Board){}
+
 	//animalCount := len(animals)
 	board := boardpkg.New()
-	matrix := board.GetMatrix()
-	for i := range matrix {
-		for j := range matrix {
-			err := board.ChangeBoard(boardpkg.NewBoardChange(i, j, animals[0])) // TODO: change to be length of animals list
-
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			board1 := board
-			for i := range matrix {
-				for j := range matrix[i] {
-					err := board.ChangeBoard(boardpkg.NewBoardChange(i, j, animals[1]))
-					if err != nil {
-						fmt.Println(err)
-						continue
-					}
-					boards = append(boards, board)
-					board = board1
-
-				}
-			}
-			board = boardpkg.New()
-			board1 = boardpkg.New()
-		}
-	}
+	boards := []boardpkg.Board{board}
 
 	return boards
+}
+
+// Given list of existing boards, and an animal, generate list of all boards adding that animal to given boards.
+func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) []boardpkg.Board {
+	output := []boardpkg.Board{}
+	for _, b := range boards {
+		matrix := b.GetMatrix()
+		bCopy := b
+		for i := range matrix {
+			for j := range matrix {
+				err := bCopy.ChangeBoard(boardpkg.NewBoardChange(i, j, animal))
+
+				if err != nil {
+					fmt.Println(err)
+					continue
+				}
+				// add new board
+				output = append(output, bCopy)
+				// reset to board without previous animal added
+				bCopy = b
+			}
+		}
+	}
+	return output
 }
