@@ -35,7 +35,7 @@ func main() {
 	}
 	fmt.Println(board)
 	fmt.Println(boardsCount)
-	fmt.Println(board.ConvertCounts(boardsCount))
+	fmt.Println(board.GetCounts().ConvertCounts(boardsCount))
 	animals := []animal.Animal{farm.Rabbit, farm.Sheep}
 	boards := generateAllBoards(animals)
 	for _, b := range boards {
