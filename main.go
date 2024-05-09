@@ -14,7 +14,7 @@ func main() {
 	board := boardpkg.New()
 	matrix := board.GetMatrix()
 
-	var animals = []animal.Animal{}
+	var animals = []animal.Animal{farm.Rabbit, farm.Sheep}
 
 	for i := range matrix {
 		for j := range matrix[i] {
@@ -34,28 +34,41 @@ func main() {
 		}
 	}
 	fmt.Println(board)
-	fmt.Println(boardsCount)
 	fmt.Println(board.GetCounts().ConvertCounts(boardsCount))
-
-	rabbitBoards := allAnimalPositionsForBoard(farm.Rabbit, []boardpkg.Board{boardpkg.New()})
-	sheepBoards := allAnimalPositionsForBoard(farm.Sheep, rabbitBoards)
-
-	for _, b := range sheepBoards {
-		fmt.Println(b)
-	}
 
 	allBoards := generateAllBoards(animals)
 	for _, b := range allBoards {
 		fmt.Println(b)
 	}
+	fmt.Printf("There are %d boards \n", len(allBoards))
 
+	prc := boardpkg.PercCount{}
+	prcMatrix := prc.GetMatrix()
+	for i := range prcMatrix {
+		for j := range prcMatrix[i] {
+			for _, b := range allBoards {
+				bMatrix := b.GetMatrix()
+				if bMatrix[i][j].GetState() {
+					prc.IncValue(i, j)
+				}
+			}
+			// convert to percentiles calculation
+			prc.ScaleValue(i, j, 100/float64(len(allBoards)))
+		}
+
+	}
+	fmt.Println(prc)
 }
 
 func generateAllBoards(animals []animal.Animal) [](boardpkg.Board) {
 
-	//animalCount := len(animals)
 	board := boardpkg.New()
 	boards := []boardpkg.Board{board}
+	animalCount := len(animals)
+
+	for i := range animalCount {
+		boards = allAnimalPositionsForBoard(animals[i], boards)
+	}
 
 	return boards
 }

@@ -8,11 +8,11 @@ func (c *countsMatrix) getValue(i, j int) int {
 	return c.counts[i][j]
 }
 
-func (c *countsMatrix) ConvertCounts(boards int) percCount {
-	prc := percCount{}
+func (c *countsMatrix) ConvertCounts(boards int) PercCount {
+	prc := PercCount{}
 	for i := range c.counts {
 		for j := range c.counts[i] {
-			prc.setValue(i, j, 100*float64(c.counts[i][j])/float64(boards))
+			prc.SetValue(i, j, 100*float64(c.counts[i][j])/float64(boards))
 
 		}
 	}
