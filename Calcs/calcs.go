@@ -1,4 +1,4 @@
-package main
+package calculations
 
 import (
 	"fmt"
@@ -10,17 +10,17 @@ import (
 
 var placementErrorLog = []string{}
 
-func main() {
+func Calculation() (boardCount int, prc boardpkg.PercCount) {
 	var animals = []animal.Animal{mars.Rover, mars.Martian, mars.Marsmallow, mars.Marsten}
 	allBoards := generateAllBoards(animals)
 
-	printAllBoards(allBoards)
+	//printAllBoards(allBoards)
 	//fmt.Print(placementErrorLog)
 
-	fmt.Printf("There are %d boards \n", len(allBoards))
+	//fmt.Printf("There are %d boards \n", len(allBoards))
 
-	prc := boardpkg.CalculatePercentages(allBoards)
-	fmt.Println(prc)
+	prc = boardpkg.CalculatePercentages(allBoards)
+	return len(allBoards), prc
 }
 
 // Given list of animals, generate all boards with those animals
