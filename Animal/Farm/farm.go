@@ -1,10 +1,13 @@
-package FarmAnimals
+package farm
 
 import (
 	animal "github.com/discozoo/Animal"
 
 	utils "github.com/discozoo/Utils"
 )
+
+// Coords are:
+// {amt down, amt right}
 
 var Rabbit = animal.NewAnimal("Rabbit", utils.TilesList{
 	{0, 0},

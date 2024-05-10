@@ -42,9 +42,9 @@ func CalculatePercentages(boards []Board) PercCount {
 func (p PercCount) String() string {
 	str := ""
 	for i := range p.matrix {
-		str = str + "||  "
+		str = str + "|| "
 		for j := range p.matrix[i] {
-			str = str + fmt.Sprintf("  %.2f%%  ||", p.matrix[i][j])
+			str = str + fmt.Sprintf("  %05.2f%%  ||", p.matrix[i][j])
 		}
 		str = str + "\n"
 	}
