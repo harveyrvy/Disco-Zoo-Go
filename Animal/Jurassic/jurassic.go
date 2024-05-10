@@ -1,4 +1,4 @@
-package jungle
+package jurassic
 
 import (
 	animal "github.com/discozoo/Animal"
@@ -9,46 +9,46 @@ import (
 // Coords are:
 // {amt down, amt right}
 
-var Monkey = animal.NewAnimal("Monkey", utils.TilesList{
+var Diplodocus = animal.NewAnimal("Diplo", utils.TilesList{
 	{0, 0},
 	{1, 1},
-	{0, 2},
-	{1, 3},
-})
-
-var Toucan = animal.NewAnimal("Toucan", utils.TilesList{
-	{0, 0},
-	{1, -1},
-	{2, 0},
-	{3, 0},
-})
-
-var Gorilla = animal.NewAnimal("Gorilla", utils.TilesList{
-	{0, 0},
-	{1, 0},
-	{0, 2},
 	{1, 2},
+	{2, 1},
 })
 
-var Panda = animal.NewAnimal("Panda", utils.TilesList{
+var Stegosaurus = animal.NewAnimal("Stego", utils.TilesList{
 	{0, 0},
+	{-1, 1},
 	{-1, 2},
-	{1, 2},
-})
-
-var Tiger = animal.NewAnimal("Tiger", utils.TilesList{
-	{0, 0},
-	{0, 2},
 	{0, 3},
 })
 
-var Phoenix = animal.NewAnimal("Phoenix", utils.TilesList{
+var Raptor = animal.NewAnimal("Raptor", utils.TilesList{
 	{0, 0},
+	{0, 1},
+	{1, 1},
 	{2, 2},
 })
 
-var Lemur = animal.NewAnimal("Lemur", utils.TilesList{
+var TRex = animal.NewAnimal("T-Rex", utils.TilesList{
 	{0, 0},
-	{1, 1},
 	{2, 0},
+	{2, 1},
+})
+
+var Triceratops = animal.NewAnimal("Tricera", utils.TilesList{
+	{0, 0},
+	{1, 2},
+	{2, 0},
+})
+
+var Dragon = animal.NewAnimal("Dragon", utils.TilesList{
+	{0, 0},
+	{1, 2},
+})
+
+var Ankylosaurus = animal.NewAnimal("Ankylo", utils.TilesList{
+	{0, 0},
+	{0, 2},
+	{-1, 2},
 })

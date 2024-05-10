@@ -4,14 +4,14 @@ import (
 	"fmt"
 
 	animal "github.com/discozoo/Animal"
-	jungle "github.com/discozoo/Animal/Jungle"
+	mars "github.com/discozoo/Animal/Mars"
 	boardpkg "github.com/discozoo/Board"
 )
 
 var placementErrorLog = []string{}
 
 func main() {
-	var animals = []animal.Animal{jungle.Panda, jungle.Tiger, jungle.Phoenix, jungle.Lemur}
+	var animals = []animal.Animal{mars.Rover, mars.Martian, mars.Marsmallow, mars.Marsten}
 	allBoards := generateAllBoards(animals)
 
 	printAllBoards(allBoards)
