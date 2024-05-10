@@ -4,17 +4,17 @@ import (
 	"fmt"
 
 	animal "github.com/discozoo/Animal"
-	farm "github.com/discozoo/Animal/FarmAnimals"
+	jungle "github.com/discozoo/Animal/Jungle"
 	boardpkg "github.com/discozoo/Board"
 )
 
 var placementErrorLog = []string{}
 
 func main() {
-	var animals = []animal.Animal{farm.Rabbit, farm.Sheep}
+	var animals = []animal.Animal{jungle.Panda, jungle.Tiger, jungle.Phoenix, jungle.Lemur}
 	allBoards := generateAllBoards(animals)
 
-	//printAllBoards(allBoards)
+	printAllBoards(allBoards)
 	//fmt.Print(placementErrorLog)
 
 	fmt.Printf("There are %d boards \n", len(allBoards))
@@ -23,6 +23,7 @@ func main() {
 	fmt.Println(prc)
 }
 
+// Given list of animals, generate all boards with those animals
 func generateAllBoards(animals []animal.Animal) [](boardpkg.Board) {
 
 	board := boardpkg.New()
@@ -36,7 +37,7 @@ func generateAllBoards(animals []animal.Animal) [](boardpkg.Board) {
 	return boards
 }
 
-// Given list of existing boards, and an animal, generate list of all boards adding that animal to given boards.
+// Given list of existing boards, and an animal, generate list of all boards which add that animal to given boards.
 func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) []boardpkg.Board {
 	output := []boardpkg.Board{}
 	for _, b := range boards {
@@ -50,7 +51,7 @@ func allAnimalPositionsForBoard(animal animal.Animal, boards []boardpkg.Board) [
 					placementErrorLog = append(placementErrorLog, fmt.Sprintf("%s\n", err))
 					continue
 				}
-				// add new board
+				// add new board to output list
 				output = append(output, bCopy)
 				// reset to board without previous animal added
 				bCopy = b
