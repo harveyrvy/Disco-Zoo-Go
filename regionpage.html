@@ -6,6 +6,9 @@
 <body>
 <p>The region selected is {{.RegionName}}</p>
 <p>And the animals in it are {{.AnimalList}}</p>
+{{range $element := .AnimalList}}
+    <button> {{$element}} </button>
+    {{end}}
 <a href="../">
     <button> Home </button>
 </a>

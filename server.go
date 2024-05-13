@@ -6,8 +6,14 @@ import (
 	"net/http"
 
 	farm "github.com/discozoo/Animal/Farm"
+	outback "github.com/discozoo/Animal/Outback"
 	calcs "github.com/discozoo/Calcs"
 )
+
+var RegionAnimals = map[string]([]string){
+	"farm":    farm.GetAnimalNames(),
+	"outback": outback.GetAnimalNames(),
+}
 
 type HomePageVariables struct {
 	Grid        string
@@ -35,24 +41,26 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func FarmPage(w http.ResponseWriter, r *http.Request) {
-	animalNames := farm.GetAnimalNames()
-	FarmPageVars := RegionPageVariables{
-		RegionName: "farm",
-		AnimalList: animalNames}
-	t, err := template.ParseFiles("regionpage.html")
-	if err != nil {
-		log.Print("template parsing error: ", err)
+func RegionPage(region string) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		animalNames := RegionAnimals[region]
+		FarmPageVars := RegionPageVariables{
+			RegionName: region,
+			AnimalList: animalNames}
+		t, err := template.ParseFiles("regionpage.html")
+		if err != nil {
+			log.Print("template parsing error: ", err)
+		}
+		err = t.Execute(w, FarmPageVars)
+		if err != nil {
+			log.Print("template execution error: ", err)
+		}
 	}
-	err = t.Execute(w, FarmPageVars)
-	if err != nil {
-		log.Print("template execution error: ", err)
-	}
-
 }
 
 func main() {
 	http.HandleFunc("/", HomePage)
-	http.HandleFunc("/farm/", FarmPage)
+	http.HandleFunc("/farm/", RegionPage("farm"))
+	http.HandleFunc("/outback/", RegionPage("outback"))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
