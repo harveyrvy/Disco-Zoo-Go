@@ -6,17 +6,6 @@ import (
 	utils "github.com/discozoo/Utils"
 )
 
-func GetAnimals() []animal.Animal {
-	return []animal.Animal{Kangaroo, Platypus, Crocodile, Koala, Cockatoo, Tiddalik, Echidna}
-}
-func GetAnimalNames() []string {
-	names := []string{}
-	for _, a := range []animal.Animal{Kangaroo, Platypus, Crocodile, Koala, Cockatoo, Tiddalik, Echidna} {
-		names = append(names, a.GetName())
-	}
-	return names
-}
-
 // Coords are:
 // {amt down, amt right}
 

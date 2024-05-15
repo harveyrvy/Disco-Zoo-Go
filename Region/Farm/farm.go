@@ -2,23 +2,11 @@ package farm
 
 import (
 	animal "github.com/discozoo/Animal"
-
 	utils "github.com/discozoo/Utils"
 )
 
 // Coords are:
 // {amt down, amt right}
-
-func GetAnimals() []animal.Animal {
-	return []animal.Animal{Rabbit, Sheep, Pig, Cow, Horse, Unicorn, Chicken}
-}
-func GetAnimalNames() []string {
-	names := []string{}
-	for _, a := range []animal.Animal{Rabbit, Sheep, Pig, Cow, Horse, Unicorn, Chicken} {
-		names = append(names, a.GetName())
-	}
-	return names
-}
 
 var Rabbit = animal.NewAnimal("Rabbit", utils.TilesList{
 	{0, 0},

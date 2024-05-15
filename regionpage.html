@@ -5,11 +5,12 @@
 </head>
 <body>
 <p>The region selected is {{.RegionName}}</p>
-<p>And the animals in it are {{.AnimalList}}</p>
-{{range $element := .AnimalList}}
+<p>And the animals in it are {{.AnimalNames}}</p>
+<p>And the Path is {{.Path}}</p>
+{{range $element := .AnimalNames}}
     <button> {{$element}} </button>
     {{end}}
-<a href="../">
+<a href="../home">
     <button> Home </button>
 </a>
 </body>

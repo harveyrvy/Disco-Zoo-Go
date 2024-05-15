@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	animal "github.com/discozoo/Animal"
-	farm "github.com/discozoo/Animal/Farm"
 	boardpkg "github.com/discozoo/Board"
+	farm "github.com/discozoo/Region/Farm"
 )
 
 var placementErrorLog = []string{}
