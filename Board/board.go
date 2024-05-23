@@ -66,6 +66,7 @@ func (b Board) String() string {
 	for i := range b.matrix {
 		str = str + "||  "
 		for j := range b.matrix[i] {
+			//TODO: make this format based off animal with longest name
 			str = str + fmt.Sprintf("%8s | %-8d  ||  ", b.matrix[i][j].animal.String(), b.counts.getValue(i, j))
 		}
 		str = str + "\n"
