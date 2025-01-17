@@ -10,9 +10,9 @@ import (
 
 var placementErrorLog = []string{}
 
-func Calculation() (boardCount int, prc boardpkg.PercCount) {
-	var animals = []animal.Animal{farm.Sheep, farm.Rabbit, animal.NewEmpty()}
-	allBoards := generateAllBoards(animals)
+func Calculation() (boardCount int, prc boardpkg.PercCount, allBoards [](boardpkg.Board)) {
+	var animals = []animal.Animal{farm.Sheep, farm.Rabbit}
+	allBoards = generateAllBoards(animals)
 
 	//printAllBoards(allBoards)
 	//fmt.Print(placementErrorLog)
@@ -20,7 +20,7 @@ func Calculation() (boardCount int, prc boardpkg.PercCount) {
 	//fmt.Printf("There are %d boards \n", len(allBoards))
 
 	prc = boardpkg.CalculatePercentages(allBoards)
-	return len(allBoards), prc
+	return len(allBoards), prc, allBoards
 }
 
 // Given list of animals, generate all boards with those animals

@@ -18,6 +18,10 @@ func NewAnimal(name string, tiles utils.TilesList) Animal {
 	return Animal{name, tiles}
 }
 
+func NewDefault() Animal {
+	return Animal{"Empty", utils.NewTilesList()}
+}
+
 func (a *Animal) SetName(name string) {
 	a.name = name
 }

@@ -26,8 +26,8 @@ type RegionPageVariables struct {
 var regionMap = region.GetRegionMap()
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
-	boardsCount, prc := calcs.Calculation()
-	Boards := []boardpkg.Board{}
+	boardsCount, prc, allBoards:= calcs.Calculation()
+	Boards := allBoards
 	HomePageVars := HomePageVariables{
 		Grid:        prc.String(),
 		Boards:      Boards,
