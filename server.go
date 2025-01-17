@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"path/filepath"
 
+	boardpkg "github.com/discozoo/Board"
 	calcs "github.com/discozoo/Calcs"
 	region "github.com/discozoo/Region"
 )
@@ -13,6 +14,7 @@ import (
 type HomePageVariables struct {
 	Grid        string
 	BoardsCount int
+	Boards      []boardpkg.Board
 }
 
 type RegionPageVariables struct {
@@ -25,8 +27,10 @@ var regionMap = region.GetRegionMap()
 
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	boardsCount, prc := calcs.Calculation()
+	Boards := []boardpkg.Board{}
 	HomePageVars := HomePageVariables{
 		Grid:        prc.String(),
+		Boards:      Boards,
 		BoardsCount: boardsCount,
 	}
 	t, err := template.ParseFiles("homepage.html")
@@ -58,9 +62,7 @@ func RegionPage() func(http.ResponseWriter, *http.Request) {
 }
 
 func main() {
-	//handler := &RegexpHandler{}
-	//handler.HandleFunc(regexp.MustCompile("/"), HomePage)
-	//handler.HandleFunc(regexp.MustCompile("[a-z]*$"), HomePage)
+
 	http.HandleFunc("/home/", HomePage)
 	http.HandleFunc("/", RegionPage())
 	log.Fatal(http.ListenAndServe(":8080", nil))

@@ -11,7 +11,7 @@ import (
 var placementErrorLog = []string{}
 
 func Calculation() (boardCount int, prc boardpkg.PercCount) {
-	var animals = []animal.Animal{farm.Sheep, farm.Rabbit}
+	var animals = []animal.Animal{farm.Sheep, farm.Rabbit, animal.NewEmpty()}
 	allBoards := generateAllBoards(animals)
 
 	//printAllBoards(allBoards)

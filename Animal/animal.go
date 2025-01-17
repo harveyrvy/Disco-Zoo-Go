@@ -9,8 +9,8 @@ type Animal struct {
 	tiles utils.TilesList
 }
 
-func NewDefault() Animal {
-	return Animal{"X", utils.NewTilesList()}
+func NewEmpty(tile utils.TilesList) Animal {
+	return Animal{"Empty", tile} // dobnt know if this is best way to call it, needs to be list of length 1
 }
 
 func NewAnimal(name string, tiles utils.TilesList) Animal {
