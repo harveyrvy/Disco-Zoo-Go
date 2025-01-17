@@ -61,8 +61,11 @@ func RegionPage() func(http.ResponseWriter, *http.Request) {
 	}
 }
 
-func main() {
+func CalculateHandler(w http.ResponseWriter, r *http.Request) {}
 
+
+func main() {
+	http.HandleFunc("/calculate/". CalculateHandler)
 	http.HandleFunc("/home/", HomePage)
 	http.HandleFunc("/", RegionPage())
 	log.Fatal(http.ListenAndServe(":8080", nil))

@@ -23,6 +23,12 @@ func Calculation() (boardCount int, prc boardpkg.PercCount, allBoards [](boardpk
 	return len(allBoards), prc, allBoards
 }
 
+func Calculation2(animals []animal.Animal) (boardCount int, prc boardpkg.PercCount, allBoards [](boardpkg.Board)) {
+	allBoards = generateAllBoards(animals)
+	prc = boardpkg.CalculatePercentages(allBoards)
+	return len(allBoards), prc, allBoards
+}
+
 // Given list of animals, generate all boards with those animals
 func generateAllBoards(animals []animal.Animal) [](boardpkg.Board) {
 
