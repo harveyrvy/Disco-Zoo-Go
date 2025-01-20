@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Disco Zoo Page</title>
-<script type = "text/javascript">  
-    function alertMe() {   
-    alert(this.innerHTML);  
-             }  
-    </script>  
-</head>
-<body>
-<p>The region selected is {{.RegionName}}</p>
-<p>And the animals in it are {{.AnimalNames}}</p>
-<p>And the Path is {{.Path}}</p>
-{{range $element := .AnimalNames}}
-    <button onclick="alertMe()", id={{$element}}> {{$element}} </button>
-    {{end}}
-<a href="../home">
-    <button> Home </button>
-</a>
 
+<head>
+    <title>Disco Zoo Page</title>
+    <script type="text/javascript">
+        function alertMe() {
+            alert(this.innerHTML);
+        }  
+    </script>
+</head>
+
+<body>
+    <p>The region selected is {{.RegionName}}</p>
+    <p>And the animals in it are {{.AnimalNames}}</p>
+    <p>And the Path is {{.Path}}</p>
+    {{range $element := .AnimalNames}}
+    <button onclick="fetchCalculation(`{{$element}}`)" , id={{$element}}> {{$element}} </button>
+    {{end}}
+    <a href="../home">
+        <button> Home </button>
+    </a>
+    <div class="result" id="result"></div>
+    <script>
+        async function fetchCalculation(animal) {
+            console.log('calc')
+            const response = await fetch(`/calculate?animal=${animal}`);
+            const data = await response.json()
+            document.getElementById('result').innerText = `Result: ${data.result}`;
+        }
+
+
+    </script>
 </body>
+
 </html>

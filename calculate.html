@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Calculation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        select,
+        button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Choose an Animal</h1>
+    <select id="animalSelect">
+        <option value="Lion">Lion</option>
+        <option value="Tiger">Tiger</option>
+        <option value="Elephant">Elephant</option>
+        <option value="Monkey">Monkey</option>
+    </select>
+    <button onclick="fetchCalculation()">Calculate</button>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        async function fetchCalculation() {
+
+            const animal = document.getElementById('animalSelect').value;
+            const response = await fetch(`/calculate?animal=${animal}`);
+            const data = await response.json();
+            document.getElementById('result').innerText = `Result: ${data.result}`;
+        }
+    </script>
+</body>
+
+</html>
