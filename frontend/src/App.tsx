@@ -4,7 +4,6 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [animalsList, setAnimalsList] = useState<string[]>([]);
   const [tiles, setTiles] = useState();
 
@@ -22,7 +21,8 @@ function App() {
     });
     console.log(response);
     const data = await response.json();
-    setTiles(data.tiles);
+    console.log(data);
+    setTiles(data.Animals);
   };
 
   return (
@@ -37,9 +37,6 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
